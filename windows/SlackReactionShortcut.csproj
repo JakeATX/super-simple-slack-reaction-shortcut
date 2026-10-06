@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>SlackReactionShortcut</AssemblyName>
     <AssemblyTitle>Super Simple Slack Reaction Shortcut</AssemblyTitle>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>

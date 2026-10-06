@@ -26,7 +26,11 @@ try {
     if ($env:SLACK_REACTION_VERIFY_ONLY -eq '1') { Write-Host 'PASS: release download, checksum and native self-tests'; return }
     New-Item -ItemType Directory -Force $dir | Out-Null
     $exe = Join-Path $dir 'SlackReactionShortcut.exe'
-    Get-Process -Name 'SlackReactionShortcut' -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq $exe } | Stop-Process
+    $running = @(Get-Process -Name 'SlackReactionShortcut' -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq $exe })
+    foreach ($process in $running) {
+        Stop-Process -InputObject $process -Force
+        if (!$process.WaitForExit(10000)) { throw 'The existing helper did not exit. Try again.' }
+    }
     Copy-Item $download $exe -Force
     $startup = [Environment]::GetFolderPath('Startup')
     $shell = New-Object -ComObject WScript.Shell
