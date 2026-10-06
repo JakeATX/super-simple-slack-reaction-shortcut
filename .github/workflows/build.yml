@@ -65,3 +65,24 @@ jobs:
           cd dist
           sha256sum super-simple-slack-reaction-shortcut-* > SHA256SUMS
           gh release create "$TAG" --title "Super Simple Slack Reaction Shortcut $TAG" --generate-notes --verify-tag ./*
+  verify-macos-download:
+    needs: release
+    runs-on: macos-14
+    steps:
+      - name: Verify published Mac install command
+        env:
+          SLACK_REACTION_VERIFY_ONLY: '1'
+        run: curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/main/install-macos.sh | bash
+  verify-windows-install:
+    needs: release
+    runs-on: windows-latest
+    steps:
+      - name: Verify published Windows install and uninstall commands
+        shell: pwsh
+        run: |
+          irm https://raw.githubusercontent.com/${{ github.repository }}/main/install-windows.ps1 | iex
+          $exe = Join-Path $env:LOCALAPPDATA 'SuperSimpleSlackReactionShortcut/SlackReactionShortcut.exe'
+          $link = Join-Path ([Environment]::GetFolderPath('Startup')) 'Super Simple Slack Reaction Shortcut.lnk'
+          if (!(Test-Path $exe) -or !(Test-Path $link)) { throw 'Installation or login startup is missing' }
+          irm https://raw.githubusercontent.com/${{ github.repository }}/main/uninstall-windows.ps1 | iex
+          if ((Test-Path $exe) -or (Test-Path $link)) { throw 'Uninstall did not remove the helper and login startup' }
