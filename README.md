@@ -43,7 +43,7 @@ irm https://raw.githubusercontent.com/JakeATX/super-simple-slack-reaction-shortc
 ## If something doesn’t work
 
 - **Mac says it needs permission:** enable this helper—not Terminal or Slack—in **System Settings → Privacy & Security → Accessibility**. After an update, macOS may need the toggle switched off and on again.
-- **The picker doesn’t appear:** use the Slack **desktop app**, open a conversation, and hover over or focus a message. The helper translates your shortcut to Slack’s built-in **⌘⇧\\** or **Ctrl⇧\\**; keyboard layouts and Slack versions can vary. English keyboard layouts are the supported default.
+- **The picker doesn’t appear:** use the Slack **desktop app**, open a conversation, and hover over or focus a message. The helper translates your shortcut to Slack’s built-in **⌘⇧\** or **Ctrl⇧\**; keyboard layouts and Slack versions can vary. English keyboard layouts are the supported default.
 - **Windows Slack runs as administrator:** launch Slack normally instead; Windows blocks input from a normal app into an elevated app.
 - **A managed computer blocks the app:** ask your IT team. Installation does not disable Gatekeeper, SmartScreen, antivirus, or corporate policy. Release binaries are not notarized or commercially code-signed, so an OS security prompt is possible.
 
